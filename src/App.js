@@ -52,12 +52,8 @@ class App extends Component {
   }
 
   addToMyList(movie) {
-    const { mylist } = this.state.Netflix;
-
-    for (var i = 0; i < mylist.length; ++i) {
-      if (movie.id === mylist[i].id) {
-        return;
-      }
+    if (this._alreadyInMyList(movie)) {
+      return;
     }
 
     Netflix.mylist.push(movie);
@@ -68,19 +64,28 @@ class App extends Component {
   }
 
   removeFromMyList(movie) {
-    const { mylist } = this.state.Netflix;
-
-    for (var i = 0; i < mylist.length; ++i) {
-      if (movie.id === mylist[i].id) {
-        mylist.splice(i, 1);
-        break;
-      }
-    }
-
-    Netflix.mylist = mylist;
+    Netflix.mylist = this._removeFromMyList(movie);
 
     this.setState({
       Netflix,
+    });
+  }
+
+  _alreadyInMyList(movie) {
+    const { mylist } = this.state.Netflix;
+
+    const myNewList = mylist.filter((m) => {
+      return movie.id === m.id;
+    });
+
+    return !!myNewList.length;
+  }
+
+  _removeFromMyList(movie) {
+    const { mylist } = this.state.Netflix;
+
+    return mylist.filter((m) => {
+      return movie.id !== m.id;
     });
   }
 }
