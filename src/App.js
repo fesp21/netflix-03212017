@@ -8,18 +8,27 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      Netflix: Netflix,
+    };
+
     this.addToMyList = this.addToMyList.bind(this);
     this.removeFromMyList = this.removeFromMyList.bind(this);
   }
 
   render() {
+    const {
+      mylist,
+      recommendations,
+    } = this.state.Netflix;
+
     return (
       <div>
         <h1>My List</h1>
 
         <MovieList
           buttonText='Remove'
-          movies={Netflix.mylist} 
+          movies={mylist} 
           onClickButton={this.removeFromMyList}
         />
 
@@ -27,14 +36,14 @@ class App extends Component {
 
         <MovieList 
           buttonText='Add'
-          movies={Netflix.recommendations} 
+          movies={recommendations} 
           onClickButton={this.addToMyList}
         />
 
         <h3>My list titles:</h3>
 
         <MovieList 
-          movies={Netflix.mylist} 
+          movies={mylist} 
           showButton={false}
           titleOnly={true} 
         />
@@ -43,11 +52,36 @@ class App extends Component {
   }
 
   addToMyList(movie) {
-    console.log('Adding', movie.title, 'to my list!');
+    const { mylist } = this.state.Netflix;
+
+    for (var i = 0; i < mylist.length; ++i) {
+      if (movie.id === mylist[i].id) {
+        return;
+      }
+    }
+
+    Netflix.mylist.push(movie);
+
+    this.setState({
+      Netflix,
+    });
   }
 
   removeFromMyList(movie) {
-    console.log('Removing', movie.title, 'from my list!');
+    const { mylist } = this.state.Netflix;
+
+    for (var i = 0; i < mylist.length; ++i) {
+      if (movie.id === mylist[i].id) {
+        mylist.splice(i, 1);
+        break;
+      }
+    }
+
+    Netflix.mylist = mylist;
+
+    this.setState({
+      Netflix,
+    });
   }
 }
 
