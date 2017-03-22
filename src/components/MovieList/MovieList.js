@@ -28,7 +28,9 @@ class MovieList extends React.Component {
 
   renderMovies() {
     const {
+      buttonText,
       movies,
+      onClickButton,
       showButton,
       titleOnly,
     } = this.props;
@@ -42,8 +44,10 @@ class MovieList extends React.Component {
       return (
         <li className={listItemClasses} key={ movie.id }>
           <MovieCard 
+            buttonText={ buttonText }
             commaAfterTitle={ titleOnly && (idx !== (movies.length - 1)) }
-            movie={ movie } 
+            movie={ movie }
+            onClick={ onClickButton }
             showButton={ showButton }
             titleOnly={ titleOnly } 
           />
@@ -54,7 +58,9 @@ class MovieList extends React.Component {
 }
 
 MovieList.defaultProps = {
+  buttonText: '',
   movies: [],
+  onClickButton: () => {},
   showButton: true,
   titleOnly: false,
 };

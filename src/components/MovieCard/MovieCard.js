@@ -20,12 +20,21 @@ class MovieCard extends React.Component {
   }
 
   renderButton() {
-    if (!this.props.showButton) {
+    const {
+      buttonText,
+      movie,
+      onClick,
+      showButton,
+    } = this.props;
+
+    if (!showButton) {
       return null;
     }
 
     return (
-      <div className="movie-card-button">{'Add'}</div>
+      <a className="movie-card-button" onClick={ onClick.bind(null, movie) }>
+        { buttonText }
+      </a>
     );
   }
 
@@ -56,8 +65,10 @@ class MovieCard extends React.Component {
 }
 
 MovieCard.defaultProps = {
+  buttonText: '',
   commaAfterTitle: false,
   movie: null,
+  onClick: () => {},
   showButton: true,
   titleOnly: false,
 };
