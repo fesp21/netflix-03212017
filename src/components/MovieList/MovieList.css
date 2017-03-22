@@ -1,0 +1,20 @@
+.movie-list {
+  list-style-type: none;
+}
+
+.movie-list-item {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.movie-list-item:hover .movie-card-button {
+  opacity: 1;
+}
+
+.movie-list-item:last-child {
+  margin-right: 0;
+}
+
+.movie-list-item-text {
+  margin-right: 0;
+}
