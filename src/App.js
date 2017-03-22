@@ -17,15 +17,21 @@ class App extends Component {
       <div>
         <h1>My List</h1>
 
-        {this.renderMyList()}
+        <ol className="movie-list">
+          {this.renderMyList()}
+        </ol>
 
         <h1>Recommendations</h1>
 
-        {this.renderRecommendations()}
+        <ol className="movie-list">
+          {this.renderRecommendations()}
+        </ol>
 
         <h3>My list titles:</h3>
 
-        {this.renderMyListTitles()}
+        <ol className="movie-list">
+          {this.renderMyListTitles()}
+        </ol>
       </div>
     );
   }
@@ -34,9 +40,13 @@ class App extends Component {
     if (Netflix.mylist && Netflix.mylist.length) {
       return Netflix.mylist.map(function (movie) {
         return (
-          <div className="movie my-list-movie">
-            <img className="movie-image" src={ movie.img } />
-          </div>
+          <li className="movie-list-item">
+            <img className="movie-list-item-image" src={ movie.img } />
+
+            <div className="movie-list-item-button">
+              {'Add'}
+            </div>
+          </li>
         );
       });
     }
@@ -48,7 +58,7 @@ class App extends Component {
     if (Netflix.mylist && Netflix.mylist.length) {
       return Netflix.mylist.map(function (movie, idx) {
         return (
-          <div className="movie my-list-title-movie">
+          <div className="movie-list-item movie-list-item-text">
             { movie.title }
             { (idx !== (Netflix.mylist.length - 1)) && ', ' }
           </div>
@@ -61,8 +71,8 @@ class App extends Component {
     if (Netflix.recommendations && Netflix.recommendations.length) {
       return Netflix.recommendations.map(function (movie) {
         return (
-          <div className="movie recommendation-movie">
-            <img className="movie-image" src={ movie.img } />
+          <div className="movie-list-item">
+            <img className="movie-list-item-image" src={ movie.img } />
           </div>
         );
       });
