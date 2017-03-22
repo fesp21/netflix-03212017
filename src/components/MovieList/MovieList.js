@@ -16,7 +16,9 @@ class MovieList extends React.Component {
     const { movies } = this.props;
 
     if (!movies || !movies.length) {
-      return null;
+      return (
+        <div>Nothing to show.</div>
+      );
     }
 
     return (
